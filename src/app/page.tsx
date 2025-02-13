@@ -33,29 +33,29 @@ export default function Home() {
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] px-2">
-      <main className="flex flex-col row-start-2 gap-4 justify-center items-center">
+      <main className="flex flex-col row-start-2 gap-y-4 justify-center items-center">
         <Image src="/logo.svg" alt="Next.js logo" width={100} height={38} priority />
 
-        <p className="text-2xl lg:text-3xl xl:text-4xl font-bold">Não sabe o que assistir?</p>
+        <p className="text-3xl lg:text-3xl xl:text-4xl font-bold">Não sabe o que assistir?</p>
 
         {/* Exibe erro, se houver */}
         {error && <p className="text-red-500">{error}</p>}
 
         {/* Exibe filme aleatório */}
         {movie && !loading && (
-          <div className="flex flex-col sm:flex-row items-center justify-center text-center sm:text-left gap-6 rounded-lg shadow-md w-full max-w-lg text-white">
+         <div className="flex flex-col sm:flex-row items-center justify-center gap-x-2 text-center sm:text-left rounded-lg shadow-md w-full max-w-lg text-white">
           <Image
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={movie.title}
             width={180}
             height={260}
-            className="rounded-lg object-cover"
+            className="w-32 sm:w-[180px] h-auto rounded-md object-cover"
           />
           <div className="sm:ml-4">
-            <strong className="block text-lg">{movie.title}</strong>
-            <p className="text-sm text-gray-300 px-4">{movie.overview}</p>
+            <strong className="block text-lg mt-2">{movie.title}</strong>
+            <p className="text-sm text-gray-300 px-10 sm:px-0 md:px-0 lg:px-0 xl:px-0 mt-2">{movie.overview}</p>
           </div>
-        </div>        
+        </div>            
         )}
 
         {/* Botão para buscar filme */}
