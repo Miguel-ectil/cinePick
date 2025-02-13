@@ -78,8 +78,8 @@ export default function Home() {
               className="w-32 sm:w-[180px] h-auto rounded-md object-cover"
             />
             <div className="sm:ml-4">
-              <strong className="block text-lg mt-2">{movie.title}</strong>
-              <p className="text-sm text-gray-300 px-14 sm:px-0 md:px-0 lg:px-0 xl:px-0 mt-2">{movie.overview}</p>
+              <strong className="block font text-xl mt-2">{movie.title}</strong>
+              <p className="text-md text-gray-300 px-14 sm:px-0 md:px-0 lg:px-0 xl:px-0 mt-2">{movie.overview}</p>
             </div>
           </div>
         ) : allMoviesShown ? (
