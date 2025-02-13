@@ -1,6 +1,6 @@
 # Localizador de filmes aleatórios 📝
 
-Este projeto é um aplicativo simples que sugere filmes aleatórios usando a API do TMDb.
+Este projeto/desafio é um aplicativo simples que sugere filmes aleatórios sempre que clicar no botão Encontrar Filme paea isso ela usa a API do TMDb.
 
 ## 📌 Funcionalidades
 
