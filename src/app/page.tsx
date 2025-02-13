@@ -32,7 +32,7 @@ export default function Home() {
   
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] px-2">
       <main className="flex flex-col row-start-2 gap-4 justify-center items-center">
         <Image src="/logo.svg" alt="Next.js logo" width={100} height={38} priority />
 
@@ -43,19 +43,19 @@ export default function Home() {
 
         {/* Exibe filme aleatório */}
         {movie && !loading && (
-          <div className="flex gap-x-4 border p-4 rounded-lg shadow-md w-full max-w-md bg-gray-800 text-white">
-            <Image
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              width={100}
-              height={150}
-              className="rounded-lg"
-            />
-            <div>
-              <strong className="block text-lg">{movie.title}</strong>
-              <p className="text-sm line-clamp-3">{movie.overview}</p>
-            </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center text-center sm:text-left gap-6 rounded-lg shadow-md w-full max-w-lg text-white">
+          <Image
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            width={180}
+            height={260}
+            className="rounded-lg object-cover"
+          />
+          <div className="sm:ml-4">
+            <strong className="block text-lg">{movie.title}</strong>
+            <p className="text-sm text-gray-300 px-4">{movie.overview}</p>
           </div>
+        </div>        
         )}
 
         {/* Botão para buscar filme */}
