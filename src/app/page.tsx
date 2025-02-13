@@ -103,7 +103,7 @@ export default function Home() {
         </button>
 
         <p className="mt-1 px-1 sm:mt-2 sm:px-3 text-sm sm:text-sm text-center">
-          Clique em <strong>"Encontrar filme"</strong> que traremos informações de algum filme para você assistir hoje.
+          Clique em <strong>&quot;Encontrar filme&quot;</strong> que traremos informações de algum filme para você assistir hoje.
         </p>
       </main>
     </div>
