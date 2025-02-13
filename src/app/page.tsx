@@ -75,10 +75,10 @@ export default function Home() {
               alt={movie.title}
               width={180}
               height={260}
-              className="w-32 sm:w-[180px] h-auto rounded-md object-cover"
+              className="w-32 sm:w-[180px] h-auto rounded-md object-cover transition hover:scale-110"
             />
-            <div className="sm:ml-4">
-              <strong className="block font text-xl mt-2">{movie.title}</strong>
+            <div className="sm:ml-4 mt-4 xl:mt-0">
+              <strong className="block font text-xl">{movie.title}</strong>
               <p className="text-md text-gray-300 px-14 sm:px-0 md:px-0 lg:px-0 xl:px-0 mt-2">{movie.overview}</p>
             </div>
           </div>
