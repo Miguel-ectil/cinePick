@@ -102,7 +102,7 @@ export default function Home() {
           <span className="text-black">{loading ? "Carregando..." : "Encontrar filme"}</span>
         </button>
 
-        <p className="mt-1 px-1 sm:mt-2 sm:px-2.5 text-xs sm:text-sm text-center">
+        <p className="mt-1 px-1 sm:mt-2 sm:px-3 text-sm sm:text-sm text-center">
           Clique em <strong>"Encontrar filme"</strong> que traremos informações de algum filme para você assistir hoje.
         </p>
       </main>
