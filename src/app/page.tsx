@@ -1,101 +1,82 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=pt-BR&page=1`;
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+export default function Home() {
+  const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function fetchRandomMovie() {
+    if (!API_KEY) {
+      setError("Erro: API Key não definida!");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError("");
+
+      const response = await fetch(API_URL);
+      const data = await response.json();
+
+      if (data.results && data.results.length > 0) {
+        const randomIndex = Math.floor(Math.random() * data.results.length);
+        setMovie(data.results[randomIndex]);
+      } else {
+        setError("Nenhum filme encontrado.");
+      }
+    } catch (error) {
+      setError("Erro ao buscar filme. Tente novamente.");
+      console.error("Erro ao buscar filme:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="flex flex-col row-start-2 gap-4 justify-center items-center">
+        <Image src="/logo.svg" alt="Next.js logo" width={100} height={38} priority />
+
+        <p className="text-2xl lg:text-3xl xl:text-4xl font-bold">Não sabe o que assistir?</p>
+
+        {/* Exibe erro, se houver */}
+        {error && <p className="text-red-500">{error}</p>}
+
+        {/* Exibe filme aleatório */}
+        {movie && !loading && (
+          <div className="flex gap-x-4 border p-4 rounded-lg shadow-md w-full max-w-md bg-gray-800 text-white">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt={movie.title}
+              width={100}
+              height={150}
+              className="rounded-lg"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+            <div>
+              <strong className="block text-lg">{movie.title}</strong>
+              <p className="text-sm line-clamp-3">{movie.overview}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Botão para buscar filme */}
+        <button
+          onClick={fetchRandomMovie}
+          disabled={loading}
+          className="md:text-xl flex items-center gap-x-4 rounded-lg bg-[#E9E6E3] px-5 py-2 text-sm font-semibold text-white transition hover:scale-90 hover:bg-[#ccc9c6] md:px-6 md:py-3 shadow-md"
+        >
+          {loading ? "Carregando..." : "Encontrar filme"}
+        </button>
+
+        <p className="mt-1 px-1 sm:mt-2 sm:px-2.5 text-xs sm:text-sm text-center">
+          Clique em <strong>"Encontrar filme"</strong> que traremos informações de algum filme para você assistir hoje.
+        </p>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
