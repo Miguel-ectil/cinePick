@@ -79,7 +79,7 @@ export default function Home() {
             />
             <div className="sm:ml-4 mt-4 xl:mt-0">
               <strong className="block font text-xl">{movie.title}</strong>
-              <p className="text-md text-gray-300 px-14 sm:px-0 md:px-0 lg:px-0 xl:px-0 mt-2">{movie.overview}</p>
+              <p className="text-md text-gray-300 px-4 sm:px-0 md:px-0 lg:px-0 xl:px-0 mt-2">{movie.overview}</p>
             </div>
           </div>
         ) : allMoviesShown ? (
