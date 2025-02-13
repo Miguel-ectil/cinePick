@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 type Movie = {
@@ -23,10 +24,11 @@ export default function Home() {
       setLoading(true);
       setError("");
       setAllMoviesShown(false);
+      console.log("API_URL:", process.env.NEXT_PUBLIC_API_URL);
 
-      const response = await fetch(API_URL);
+      const response = await fetch(`${API_URL}${API_KEY}&language=pt-BR&page=1`);
       const data = await response.json();
-
+      
       if (!data.results || data.results.length === 0) {
         setMovie(null);
         return;
