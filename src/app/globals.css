@@ -7,4 +7,22 @@ body {
   background-size: cover;
   color: white; 
   font-family: Arial, Helvetica, sans-serif;
+  transition: background 0.5s ease-in-out;
+}
+
+@keyframes fadeBackground {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    background: url('/fundo_mobile.png') no-repeat center center fixed;
+    background-size: cover;
+    animation: fadeBackground 0.8s ease-in-out; 
+  }
 }
