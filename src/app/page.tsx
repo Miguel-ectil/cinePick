@@ -5,37 +5,31 @@ import Image from "next/image";
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=pt-BR&page=1`;
 
+type Movie = {
+  title: string;
+  overview: string;
+  poster_path: string;
+};
+
 export default function Home() {
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   async function fetchRandomMovie() {
-    if (!API_KEY) {
-      setError("Erro: API Key não definida!");
-      return;
-    }
-
     try {
-      setLoading(true);
-      setError("");
-
-      const response = await fetch(API_URL);
+      const response = await fetch(`${API_URL}`);
       const data = await response.json();
-
-      if (data.results && data.results.length > 0) {
+  
+      if (data.results.length > 0) {
         const randomIndex = Math.floor(Math.random() * data.results.length);
-        setMovie(data.results[randomIndex]);
-      } else {
-        setError("Nenhum filme encontrado.");
+        setMovie(data.results[randomIndex] as Movie);
       }
     } catch (error) {
-      setError("Erro ao buscar filme. Tente novamente.");
       console.error("Erro ao buscar filme:", error);
-    } finally {
-      setLoading(false);
     }
   }
+  
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
